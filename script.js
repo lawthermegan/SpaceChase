@@ -1,44 +1,44 @@
-let score = 0;
 let isGameOver = false;
 
 const ufo = document.getElementById('ufo');
 const alien = document.getElementById('alien');
 const explosion = document.getElementById('explosion');
 const gameOverScreen = document.getElementById('game-over');
-const scoreDisplay = document.getElementById('score');
 
-// 1. Move UFO with Mouse or Touch
-window.addEventListener('mousemove', (e) => {
+// Sync UFO position with mouse or touch
+function updatePosition(x, y) {
     if (isGameOver) return;
-    ufo.style.left = e.pageX - 25 + 'px';
-    ufo.style.top = e.pageY - 25 + 'px';
+    // Offset by 30px to center the emoji on the cursor
+    ufo.style.left = (x - 30) + 'px';
+    ufo.style.top = (y - 30) + 'px';
     checkCollision();
-});
+}
+
+window.addEventListener('mousemove', (e) => updatePosition(e.pageX, e.pageY));
 
 window.addEventListener('touchmove', (e) => {
-    if (isGameOver) return;
     let touch = e.touches[0];
-    ufo.style.left = touch.pageX - 25 + 'px';
-    ufo.style.top = touch.pageY - 25 + 'px';
-    checkCollision();
-});
+    updatePosition(touch.pageX, touch.pageY);
+    e.preventDefault(); // Prevents screen scrolling while playing
+}, { passive: false });
 
-// 2. Move Alien Randomly
+// Move Alien to a random spot every 0.8 seconds
 function moveAlien() {
     if (isGameOver) return;
-    const x = Math.random() * (window.innerWidth - 60);
-    const y = Math.random() * (window.innerHeight - 60);
+    const x = Math.random() * (window.innerWidth - 80);
+    const y = Math.random() * (window.innerHeight - 80);
     alien.style.left = x + 'px';
     alien.style.top = y + 'px';
 }
 
-let alienInterval = setInterval(moveAlien, 1000); // Moves every 1 second
+let moveInterval = setInterval(moveAlien, 800);
 
-// 3. Collision Detection (The "Blow Up" Logic)
+// Check if UFO and Alien overlap
 function checkCollision() {
     const ufoRect = ufo.getBoundingClientRect();
     const alienRect = alien.getBoundingClientRect();
 
+    // Standard collision logic: check if boxes overlap
     if (!(ufoRect.right < alienRect.left || 
           ufoRect.left > alienRect.right || 
           ufoRect.bottom < alienRect.top || 
@@ -53,6 +53,7 @@ function triggerExplosion(x, y) {
     explosion.style.left = x + 'px';
     explosion.style.top = y + 'px';
     explosion.style.display = 'block';
+    
     alien.style.display = 'none';
     ufo.style.display = 'none';
     
@@ -61,8 +62,6 @@ function triggerExplosion(x, y) {
 
 function resetGame() {
     isGameOver = false;
-    score = 0;
-    scoreDisplay.innerText = "Aliens Caught: 0";
     gameOverScreen.style.display = 'none';
     explosion.style.display = 'none';
     alien.style.display = 'block';
