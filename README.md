@@ -1,5 +1,4 @@
 # SpaceChase
-https://lawthermegan.github.io/SpaceChase/
 GAME OVER VIEW AND RULES.
 You control the ufo across rhe screen with your finger or click and hold with mouse.
 The objective is to catch the ufo.
