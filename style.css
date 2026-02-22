@@ -1,8 +1,10 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #0b0d17; /* Deep Space */
-  color: white;
+  /* Deep purple and blue galaxy background */
+  background: #0b0d17 url('https://images.unsplash.com/photo-1464802686167-b939a6910659?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+  background-size: cover;
+  color: #a29bfe; /* Light purple text */
   font-family: 'Courier New', Courier, monospace;
   overflow: hidden;
   touch-action: none;
@@ -14,34 +16,28 @@ body {
   position: relative;
 }
 
-#ui {
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 #ufo, #alien, #explosion {
   position: absolute;
-  font-size: 50px;
+  font-size: 60px;
   user-select: none;
-  pointer-events: none; /* Mouse goes "through" them to the container */
+  pointer-events: none;
+  /* Subtle glow effect for space vibe */
+  filter: drop-shadow(0 0 10px rgba(162, 155, 254, 0.8));
 }
 
 #ufo {
   z-index: 10;
-  transition: transform 0.1s ease-out;
 }
 
 #alien {
-  transition: all 0.5s ease-in-out;
+  transition: all 0.7s ease-in-out;
   z-index: 5;
 }
 
 #explosion {
   display: none;
   z-index: 15;
-  transform: scale(2);
+  transform: scale(2.5);
 }
 
 #game-over {
@@ -50,17 +46,28 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(15, 10, 40, 0.9); /* Dark purple tint */
   padding: 40px;
-  border: 2px solid #00ff00;
+  border: 3px solid #6c5ce7; /* Neon purple border */
   text-align: center;
   z-index: 100;
+  box-shadow: 0 0 30px #6c5ce7;
+  border-radius: 15px;
 }
 
 button {
-  padding: 10px 20px;
-  background: #00ff00;
+  padding: 15px 30px;
+  background: #6c5ce7;
+  color: white;
   border: none;
   cursor: pointer;
   font-weight: bold;
+  font-size: 18px;
+  margin-top: 20px;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
+button:hover {
+  background: #a29bfe;
 }
